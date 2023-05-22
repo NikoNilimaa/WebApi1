@@ -36,6 +36,64 @@
                 "${workspaceFolder}/WebApi1/WebApi1.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "webapi1:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/WebApi1/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/WebApi1/WebApi1.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "webapi1:latest",
+                "dockerfile": "${workspaceFolder}/WebApi1/Dockerfile",
+                "context": "${workspaceFolder}",
+                "platform": "linux/amd64",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/WebApi1/WebApi1.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug",
+            "dependsOn": [
+                "docker-build: debug"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/WebApi1/WebApi1.csproj",
+                "enableDebugging": true,
+                "configureSsl": false
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build: release"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/WebApi1/WebApi1.csproj"
+            }
         }
     ]
 }
