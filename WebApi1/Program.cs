@@ -3,7 +3,6 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using ServiceStack.Text;
 using System.Net.Mime;
 using System.Text.Json;
 using WebApi1.Repositories;
